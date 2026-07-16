@@ -1,0 +1,4 @@
+cors_origins: ["https://example.com"]
+cookie_secure: true
+http_only: true
+

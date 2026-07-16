@@ -1,0 +1,4 @@
+cors_origins: "*"
+cookie_secure: false
+http_only: false
+

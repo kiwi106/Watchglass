@@ -1,0 +1,49 @@
+# Python caches and virtual environments
+__pycache__/
+**pycache**/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.tox/
+.nox/
+.venv/
+venv/
+env/
+.deps/
+.builddeps/
+
+# Build and packaging outputs
+build/
+dist/
+*.egg-info/
+.wheelcheck/
+
+# Coverage and generated reports
+.coverage
+coverage.xml
+htmlcov/
+reports/
+outputs/
+*.report.html
+*.report.json
+
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+id_rsa
+id_ed25519
+credentials.json
+secrets.yml
+secrets.yaml
+# Nested local repository
+/Watchglass/
+
+!tests/fixtures/vulnerable_project/.env
