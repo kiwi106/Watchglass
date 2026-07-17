@@ -13,7 +13,7 @@ def scan(root: str | Path) -> list[Finding]:
     """Scan a local directory and return stable, sorted findings."""
     root = Path(root).expanduser().resolve()
     if not root.is_dir():
-        raise ValueError(f"Not a directory: {root}")
+        raise ValueError(f"Le chemin n'est pas un répertoire : {root}")
     findings = [
         finding for file in discover_files(root) for check in ALL_CHECKS for finding in check(file)
     ]

@@ -6,7 +6,7 @@ Watchglass est une CLI open source d'audit statique et **strictement local** pou
 Elle détecte des secrets exposés et des configurations de sécurité courantes sans téléverser,
 exécuter ou modifier les fichiers analysés.
 
-> **Statut :** version alpha. Un rapport favorable ne garantit pas qu'un projet est sécurisé.
+> **Version :** 0.1.0. Un rapport favorable ne garantit pas qu'un projet est sécurisé.
 
 ## Installation
 

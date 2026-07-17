@@ -33,9 +33,9 @@ def check_sensitive_files(file: ScannedFile) -> list[Finding]:
             file,
             1,
             "RS010",
-            "Sensitive file present",
+            "Fichier sensible présent",
             Severity.HIGH,
-            f"Sensitive filename: {file.relative_path.name}",
-            "Remove it from version control, add an ignore rule, and provide a redacted template.",
+            f"Nom de fichier sensible : {file.relative_path.name}",
+            "Retirez ce fichier du contrôle de version et fournissez un modèle expurgé.",
         )
     ]

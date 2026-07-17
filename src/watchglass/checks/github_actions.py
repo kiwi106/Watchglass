@@ -25,10 +25,10 @@ def check_github_actions(file: ScannedFile) -> list[Finding]:
                     file,
                     number,
                     "RS040",
-                    "GitHub Action uses a mutable reference",
+                    "Action GitHub utilisant une référence mutable",
                     Severity.HIGH,
                     line,
-                    "Pin third-party actions to a reviewed full commit SHA.",
+                    "Épinglez les actions tierces à un SHA de commit complet et vérifié.",
                 )
             )
         if re.search(r"(?:pull_request_target\s*:|\bon\s*:\s*pull_request_target\b)", line):
@@ -37,10 +37,10 @@ def check_github_actions(file: ScannedFile) -> list[Finding]:
                     file,
                     number,
                     "RS041",
-                    "pull_request_target trigger used",
+                    "Déclencheur pull_request_target utilisé",
                     Severity.HIGH,
                     line,
-                    "Avoid running untrusted pull-request code with target-repository secrets.",
+                    "Évitez d'exécuter du code non fiable avec les secrets du dépôt cible.",
                 )
             )
         if re.search(r"permissions\s*:\s*write-all\b", line, re.IGNORECASE):
@@ -49,10 +49,10 @@ def check_github_actions(file: ScannedFile) -> list[Finding]:
                     file,
                     number,
                     "RS042",
-                    "Workflow grants write-all",
+                    "Workflow accordant write-all",
                     Severity.HIGH,
                     line,
-                    "Grant the minimum permissions per workflow or job.",
+                    "Accordez le minimum de permissions pour chaque workflow ou tâche.",
                 )
             )
     return findings

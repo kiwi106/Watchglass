@@ -22,10 +22,10 @@ def check_dockerfile(file: ScannedFile) -> list[Finding]:
                     file,
                     number,
                     "RS030",
-                    "Unpinned Docker base image",
+                    "Image de base Docker non figée",
                     Severity.MEDIUM,
                     stripped,
-                    "Pin the image to an immutable digest or reviewed version.",
+                    "Épinglez l'image à un condensat immuable ou à une version vérifiée.",
                 )
             )
         if re.match(r"ADD\s+https?://", stripped, re.IGNORECASE):
@@ -34,10 +34,10 @@ def check_dockerfile(file: ScannedFile) -> list[Finding]:
                     file,
                     number,
                     "RS031",
-                    "Remote URL used with ADD",
+                    "URL distante utilisée avec ADD",
                     Severity.MEDIUM,
                     stripped,
-                    "Download with verification in a controlled build step.",
+                    "Téléchargez avec vérification dans une étape de construction contrôlée.",
                 )
             )
         if re.search(r"\b(?:curl|wget)\b.*\|\s*(?:sh|bash)\b", stripped, re.IGNORECASE):
@@ -46,10 +46,10 @@ def check_dockerfile(file: ScannedFile) -> list[Finding]:
                     file,
                     number,
                     "RS032",
-                    "Downloaded script piped to shell",
+                    "Script téléchargé redirigé vers un interpréteur de commandes",
                     Severity.HIGH,
                     stripped,
-                    "Download, pin, verify, then execute the artifact explicitly.",
+                    "Téléchargez, épinglez, vérifiez, puis exécutez explicitement l'artefact.",
                 )
             )
     has_user = any(re.match(r"\s*USER\s+\S+", line, re.IGNORECASE) for line in lines)
@@ -59,10 +59,10 @@ def check_dockerfile(file: ScannedFile) -> list[Finding]:
                 file,
                 1,
                 "RS033",
-                "Container may run as root",
+                "Le conteneur peut s'exécuter en tant que root",
                 Severity.MEDIUM,
-                "No USER instruction",
-                "Create and select a non-root user in the final stage.",
+                "Aucune instruction USER",
+                "Créez et sélectionnez un utilisateur non root dans l'étape finale.",
             )
         )
     return findings

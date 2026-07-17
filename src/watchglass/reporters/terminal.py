@@ -9,12 +9,12 @@ from watchglass.models import Finding
 
 
 def render_terminal(findings: list[Finding], console: Console) -> None:
-    table = Table(title=f"Watchglass — {len(findings)} finding(s)")
-    table.add_column("Severity")
-    table.add_column("Rule")
-    table.add_column("Location")
-    table.add_column("Finding")
-    table.add_column("Recommendation")
+    table = Table(title=f"Watchglass — {len(findings)} constat(s)")
+    table.add_column("Gravité")
+    table.add_column("Règle")
+    table.add_column("Emplacement")
+    table.add_column("Constat")
+    table.add_column("Recommandation")
     colors = {
         "critical": "bold red",
         "high": "red",
@@ -33,4 +33,4 @@ def render_terminal(findings: list[Finding], console: Console) -> None:
         )
     console.print(table)
     if not findings:
-        console.print("[green]No finding detected by the enabled checks.[/green]")
+        console.print("[green]Aucun constat détecté par les vérifications activées.[/green]")

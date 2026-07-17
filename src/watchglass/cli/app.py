@@ -16,7 +16,8 @@ from watchglass.models import Severity
 from watchglass.reporters import render_html, render_json, render_terminal
 
 app = typer.Typer(
-    help="Audit Git repositories locally for security misconfigurations.", no_args_is_help=True
+    help="Audite localement les dépôts Git pour détecter des erreurs de sécurité.",
+    no_args_is_help=True,
 )
 console = Console()
 
@@ -37,30 +38,35 @@ def version_callback(value: bool) -> None:
 def main(
     version: Annotated[
         bool,
-        typer.Option("--version", callback=version_callback, is_eager=True, help="Show version."),
+        typer.Option(
+            "--version", callback=version_callback, is_eager=True, help="Affiche la version."
+        ),
     ] = False,
 ) -> None:
-    """Watchglass performs read-only, offline static analysis."""
+    """Watchglass réalise une analyse statique locale, hors ligne et en lecture seule."""
 
 
 @app.command()
 def scan(
-    path: Annotated[Path, typer.Argument(help="Repository directory to scan.")] = Path("."),
+    path: Annotated[Path, typer.Argument(help="Répertoire du dépôt à analyser.")] = Path("."),
     format_: Annotated[
-        OutputFormat, typer.Option("--format", "-f", help="Output format.")
+        OutputFormat, typer.Option("--format", "-f", help="Format de sortie.")
     ] = OutputFormat.TERMINAL,
     output: Annotated[
-        Path | None, typer.Option("--output", "-o", help="Write report to this file.")
+        Path | None, typer.Option("--output", "-o", help="Écrit le rapport dans ce fichier.")
     ] = None,
     fail_on: Annotated[
-        Severity, typer.Option(help="Exit 1 at or above this severity.")
+        Severity, typer.Option(help="Quitte avec le code 1 à partir de cette gravité.")
     ] = Severity.HIGH,
 ) -> None:
-    """Scan PATH without network access or code execution."""
+    """Analyse PATH sans accès réseau ni exécution de code."""
     try:
         findings = run_scan(path)
     except ValueError as error:
         raise typer.BadParameter(str(error), param_hint="PATH") from error
+
+    if output is not None:
+        output.parent.mkdir(parents=True, exist_ok=True)
 
     if format_ is OutputFormat.TERMINAL:
         if output is not None:
@@ -74,9 +80,8 @@ def scan(
         if output is None:
             typer.echo(report)
         else:
-            output.parent.mkdir(parents=True, exist_ok=True)
             output.write_text(report, encoding="utf-8")
-            console.print(f"Report written to [bold]{output}[/bold]")
+            console.print(f"Rapport écrit dans [bold]{output}[/bold]")
 
     if any(item.severity.rank >= fail_on.rank for item in findings):
         raise typer.Exit(code=1)

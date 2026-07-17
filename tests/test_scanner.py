@@ -25,7 +25,7 @@ def test_scan_rejects_file() -> None:
     try:
         scan(__file__)
     except ValueError as error:
-        assert "Not a directory" in str(error)
+        assert "n'est pas un répertoire" in str(error)
     else:
         raise AssertionError("Expected ValueError")
 

@@ -1,5 +1,6 @@
 import json
 
+import pytest
 from typer.testing import CliRunner
 
 from watchglass.cli.app import app
@@ -25,4 +26,17 @@ def test_cli_writes_html(tmp_path) -> None:
         ["scan", "tests/fixtures/secure_project", "--format", "html", "--output", str(output)],
     )
     assert result.exit_code == 0
-    assert "Watchglass security report" in output.read_text(encoding="utf-8")
+    assert "Rapport de sécurité Watchglass" in output.read_text(encoding="utf-8")
+
+
+@pytest.mark.parametrize("format_", ["terminal", "json", "html"])
+def test_cli_creates_missing_output_parent_for_all_formats(tmp_path, format_: str) -> None:
+    output = tmp_path / format_ / "report.txt"
+
+    result = runner.invoke(
+        app,
+        ["scan", "tests/fixtures/secure_project", "--format", format_, "--output", str(output)],
+    )
+
+    assert result.exit_code == 0
+    assert output.is_file()
